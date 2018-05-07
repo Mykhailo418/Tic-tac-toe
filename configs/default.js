@@ -4,5 +4,8 @@ module.exports = {
   	root: process.cwd(),
   	public: {
   		html:  `${process.cwd()}/public/html`
+  	},
+  	db: {
+  		host: 'mongodb://localhost/tic_tac_toe'
   	}
 }
