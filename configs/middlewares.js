@@ -6,5 +6,6 @@ module.exports = [
 	'error-handler',
 	'session',
 	'body-parser',
-	'multipart-parser'
+	'multipart-parser',
+	'passport'
 ];

@@ -1,5 +1,4 @@
 const mongoose = require('./mongoose.js');
-const {generateToken} = require('../helpers');
 
 const userSchema = new mongoose.Schema({
 	login:   {
@@ -27,17 +26,25 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		index: true
+	},
+	passwordHash: {
+	    type: String,
+	    required: true
+	},
+	salt: {
+		type: String,
+	    required: true
+
 	}
 }, {
 	timestamps: true
 });
 
 // Virtual
-
-
+require('./virtuals/users_virtuals')(userSchema);
 
 // Methods
-
+require('./methods/users_methods')(mongoose, userSchema.methods);
 
 // Statics
 require('./statics/users_wrap')(userSchema.statics, userSchema.methods);
