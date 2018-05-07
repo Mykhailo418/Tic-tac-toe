@@ -7,5 +7,7 @@ module.exports = [
 	'session',
 	'body-parser',
 	'multipart-parser',
-	'passport'
+	'passport',
+	'flash',
+	'csrf'
 ];

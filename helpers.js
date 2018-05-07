@@ -11,3 +11,7 @@ module.exports.get_pass_hash = function(password, salt){
 	    'sha1'
 	).toString('base64');
 };
+
+module.exports.check_authorize = function(){
+	
+}
