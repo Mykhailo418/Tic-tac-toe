@@ -1,8 +1,11 @@
 const pick = require('lodash/pick');
 
-const userPublisFields = ['email'];
+const userPublisFields = ['login', 'email', 'password'];
 
 module.exports = (schemaStatics, methods) => {
+	schemaStatics.registerUser = async function(data){
+		return await this.create(pick(data,userPublisFields));
+	}
 	schemaStatics.getUserById = async function(id) {
 		if(!methods.checkValidUserId(id)){
 			new Error(404, 'Invalid id')

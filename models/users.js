@@ -1,4 +1,5 @@
 const mongoose = require('./mongoose.js');
+const { generate_token } = require('../helpers');
 
 const userSchema = new mongoose.Schema({
 	login:   {
@@ -25,7 +26,8 @@ const userSchema = new mongoose.Schema({
 	token:{
 		type: String,
 		required: true,
-		index: true
+		index: true,
+		default: generate_token()
 	},
 	passwordHash: {
 	    type: String,
