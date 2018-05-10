@@ -3,6 +3,7 @@ module.exports = {
 	secret: 'mysecret',
   	root: process.cwd(),
   	mode: 'test',
+    url: 'http://localhost',
   	public: {
   		html:  `${process.cwd()}/public/html`
   	},

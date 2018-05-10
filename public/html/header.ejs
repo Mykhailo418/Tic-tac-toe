@@ -17,7 +17,23 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/register">Registration</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/login">Login</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
 	</header>
+	<% 
+		if(flashMessages){ 
+			for (var type in flashMessages) {
+	%>
+		<div class="alert alert-<%= type; %>">
+			<% flashMessages[type].forEach(function(msg){  %>
+				<div class="container"><strong><%= msg; %></strong></div>
+			<% }) %>
+		</div>
+	<% 
+			}
+		} 
+	%>

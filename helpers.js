@@ -26,7 +26,8 @@ module.exports.get_template_data = function(ctx, data){
 	var result = {
 		csrf: ctx.csrf,
 		isAuth: ctx.isAuthenticated() && ctx.session.passport && ctx.session.passport.user,
-		currentYear: new Date().getFullYear()
+		currentYear: new Date().getFullYear(),
+		flashMessages: ctx.flash() || []
 	};
 	return (data) ? Object.assign(result, data) : result;
 }

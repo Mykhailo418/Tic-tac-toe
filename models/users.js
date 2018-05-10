@@ -4,6 +4,7 @@ const { generate_token } = require('../helpers');
 const userSchema = new mongoose.Schema({
 	login:   {
 	    type:     String,
+	    unique: true,
 	    required: true
 	},
 	email: {

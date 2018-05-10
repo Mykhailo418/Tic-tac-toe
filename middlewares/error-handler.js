@@ -4,12 +4,15 @@ module.exports = app => app.use(async (ctx, next) => {
   } catch (e) {
     if (e.status) {
       // could use template methods to render error page
-      ctx.body = e.message;
+      ctx.flash('error','Status: '+e.status + ', ' + e.message);
+      ctx.body = {status: false, location: '/'};
       ctx.status = e.status;
+
     } else {
-      ctx.body = 'Error 500';
+      ctx.flash('error','Status: 500, ' + e.message);
+      ctx.body = {status: false, location: '/'};
       ctx.status = 500;
-      console.error(e.message, e.stack);
+      console.error(ctx, e.message, e.stack);
     }
 
   }
