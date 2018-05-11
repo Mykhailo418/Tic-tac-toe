@@ -14,12 +14,22 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/">Home</a>
 					</li>
-					<li class="nav-item">
+					<% if( isAuth ){ %>
+						<li class="nav-item" >
+							<a class="nav-link" href="/user/<%= isAuth %>">Profile</a>
+						</li>
+						<li class="nav-item" >
+							<a class="nav-link" href="/logout">logout</a>
+						</li>
+					<% } %>
+					<% if( !isAuth ){ %>
+					<li class="nav-item" >
 						<a class="nav-link" href="/register">Registration</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/login">Login</a>
 					</li>
+					<% } %>
 				</ul>
 			</div>
 		</nav>

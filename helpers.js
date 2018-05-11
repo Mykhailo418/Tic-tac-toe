@@ -29,6 +29,7 @@ module.exports.get_template_data = function(ctx, data){
 		currentYear: new Date().getFullYear(),
 		flashMessages: ctx.flash() || []
 	};
+	console.log('-- AUTH',result.isAuth);
 	return (data) ? Object.assign(result, data) : result;
 }
 

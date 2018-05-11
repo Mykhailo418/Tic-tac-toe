@@ -9,5 +9,6 @@ middlewares.forEach(middleware => require('./middlewares/' + middleware)(app));
 
 // Routes
 require('./routes/index')(app);
+require('./routes/user/index')(app);
 
 module.exports = app;

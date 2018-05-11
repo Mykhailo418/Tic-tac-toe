@@ -1,0 +1,14 @@
+<%- include('header') -%>
+
+<section>
+	<div class="container">
+		<h3>Hello <%= user.login %></h3>
+		<ul>
+			<li>Email: <%= user.email %></li>
+			<li>Created at: <%= user.createdAt %></li>
+			<li>Updated at: <%= user.updatedAt %></li>
+		</ul>
+	</div>
+</section>
+
+<%- include('footer') -%>
