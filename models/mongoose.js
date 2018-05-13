@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-const db_config = require('../configs/default').db;
+const {mode, db: db_config} = require('../configs/default');
+
 mongoose.Promise = Promise;
-mongoose.set('debug', true);
+mongoose.set('debug', mode == 'test');
 
 mongoose.connect(db_config.host, {
   server: {

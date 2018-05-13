@@ -18,7 +18,6 @@ exports.post = async function(ctx, next) {
 	              name:         data.login,
 	              token:        data.token
 	            });
-	            console.log('-- LETTER',letter);
 	            if(letter){
 					ctx.flash('info', 'Verify your email.');
 				}

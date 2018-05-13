@@ -7,6 +7,7 @@ exports.get = async function(ctx, next){
 }
 
 exports.post = async function(ctx, next){
+		console.log('-- BODY', ctx.request.body);
 	await passport.authenticate('local', {
 	    successRedirect: '/',
 	    failureRedirect: '/',

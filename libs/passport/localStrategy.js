@@ -16,7 +16,7 @@ module.exports = function(passport){
 			        return done(null, false, { message: 'There are no such login or password is incorrect' });
 			    }
 			    if(user && !user.verified){
-		    		return done(null, false, { message: 'You account is not verified' });
+		    		return done(null, false, { status: 400,  message: 'You account is not verified' });
 		    	}
 			    return done(null, user);
 		    });

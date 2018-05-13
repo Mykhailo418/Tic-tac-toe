@@ -13,7 +13,7 @@ const stubTransport = require('nodemailer-stub-transport');
 const SMTPTransport = require('nodemailer-smtp-transport');
 
 // Settings
-const transportEngine = (mode == 'test_mail' || process.env.MAILER_DISABLED) ? stubTransport() :
+const transportEngine = (mode == 'test_prod' || process.env.MAILER_DISABLED) ? stubTransport() :
   	new SMTPTransport({
 	  service: "Gmail",
 	  debug: true,

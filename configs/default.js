@@ -2,7 +2,7 @@ module.exports = {
 	port: 8000,
 	secret: 'mysecret',
   	root: process.cwd(),
-  	mode: 'test',
+  	mode: 'test_prod',
     url: 'http://localhost',
   	public: {
   		html:  `${process.cwd()}/public/html`
