@@ -1,6 +1,6 @@
 const session = require('koa-session');
 const mongooseStore = require('koa-session-mongoose');
-const mongoose = require('../models/mongoose.js')
+const store = require('../libs/sessionStore');
 
 module.exports = app => app.use(session({
   key:     'sid',
@@ -14,10 +14,6 @@ module.exports = app => app.use(session({
   // koa-session-mongoose resaves the session as a whole, not just a single field
   rolling: true,
 
-  store: new mongooseStore({
-      collection: 'appSessions',
-      connection: mongoose,
-      expires: 86400, // 1 day is the default
-      name: 'AppSession'
-  })
+  store
+
 }, app));

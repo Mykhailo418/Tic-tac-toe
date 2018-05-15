@@ -11,7 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "clarify": "^2.1.0",
+    "co": "^4.6.0",
     "co-busboy": "^1.4.0",
+    "config": "^1.30.0",
+    "cookies": "^0.7.1",
     "crypto": "^1.0.1",
     "ejs": "^2.6.1",
     "juice": "^4.2.3",
@@ -32,6 +35,7 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "nodemailer-stub-transport": "^1.1.0",
     "passport-local": "^1.0.0",
+    "socket.io": "^2.1.0",
     "trace": "^3.1.0"
   },
   "devDependencies": {

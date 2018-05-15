@@ -11,24 +11,27 @@
 		<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
 			<div class="container">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="/">Home</a>
-					</li>
 					<% if( isAuth ){ %>
 						<li class="nav-item" >
 							<a class="nav-link" href="/user/<%= isAuth %>">Profile</a>
+						</li>
+						<li class="nav-item" >
+							<a class="nav-link" href="/user/<%= isAuth %>/rooms">Game Rooms</a>
 						</li>
 						<li class="nav-item" >
 							<a class="nav-link" href="/logout">logout</a>
 						</li>
 					<% } %>
 					<% if( !isAuth ){ %>
-					<li class="nav-item" >
-						<a class="nav-link" href="/register">Registration</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/login">Login</a>
-					</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/">Home</a>
+						</li>
+						<li class="nav-item" >
+							<a class="nav-link" href="/register">Registration</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/login">Login</a>
+						</li>
 					<% } %>
 				</ul>
 			</div>

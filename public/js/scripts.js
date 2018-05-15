@@ -9,19 +9,9 @@ function sumbit_func(e){
 	e.preventDefault();
 	let form = e.target;
 	var formData = new FormData(form);
-	/*let data = {};
-	for(let i = 0; i < form.elements.length; i++){
-		let element = form.elements[i];
-		if(element.name){
-			data[element.name] = element.value;
-		}
-	}*/
 	fetch(form.action, {
 	    method: form.method,
 	    credentials: "include", 
-	  /*  headers: {
-		    'Content-Type': 'application/json'
-		},*/
 	    body: formData
 	}).then(async (res) => {
 		let type = res.headers.get('Content-Type');

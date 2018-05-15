@@ -27,9 +27,9 @@ module.exports.get_template_data = function(ctx, data){
 		csrf: ctx.csrf,
 		isAuth: ctx.isAuthenticated() && ctx.session.passport && ctx.session.passport.user,
 		currentYear: new Date().getFullYear(),
-		flashMessages: ctx.flash() || []
+		flashMessages: ctx.flash() || [],
+		isSocket: false
 	};
-	console.log('-- AUTH',result.isAuth);
 	return (data) ? Object.assign(result, data) : result;
 }
 
@@ -42,4 +42,18 @@ module.exports.generate_token = function(len = 10){
 	}
 
 	return text;
+}
+module.exports.check_user_verification = async function(ctx, user_model){
+	let id = ctx.session.passport.user;
+	if(id != ctx.params.id){
+		await ctx.throw(403,'Forbidden');
+		return;
+	}
+	return await user_model.getUserById(ctx.params.id).then(async (user) => {
+		if(!user){ return ctx.throw(404); }
+		if(user && !user.verified){
+			return ctx.throw(401, 'You account is not verified'); 
+		}
+		return user;
+	});
 }
