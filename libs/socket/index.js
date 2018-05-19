@@ -19,32 +19,69 @@ function socket(server) {
 	  		socket.emit('rooms_list', rooms);
 	  	});
 
-	  	socket.on('create_room', () => {
-	  		rooms.push({
-	  			title: 'room_' + (rooms.length + 1),
-	  			people: 0
-	  		});
-	  		socket.emit('rooms_list', rooms);
-	  		join_user_room(socket, rooms.length - 1);
+	  	socket.on('close_game', (id) => {
+	  		let room = get_room_by_id(id);
+	  		io.in(room.title).emit('room_closed', id);
 	  	});
 
-	  	socket.on('join_room', (index) => {
-	  		if(rooms[index] && rooms[index].people < max_people){
-	  			join_user_room(socket, index)
+	  	socket.on('leave_room', (id) => {
+	  		let room = get_room_by_id(id);
+	  		if(room){
+	  			socket.leave(room.title);
+	  			remove_room_by_id(id);
+	  			socket.emit('rooms_list', rooms);
+	  			socket.broadcast.emit('rooms_list', rooms);
 	  		}
+	  	});
+
+	  	socket.on('create_room', () => {
+	  		let index = rooms.length + 1;
+	  		let room = {
+	  			id: 'room' + index,
+	  			title: 'room_' + index,
+	  			people: 0
+	  		};
+	  		rooms.push(room);
+	  		join_user_room(socket, room, true);
+	  		socket.broadcast.emit('rooms_list', rooms);
+	  	});
+
+	  	socket.on('join_room', (id) => {
+	  		let room = get_room_by_id(id);
+	  		join_user_room(socket, room, false)
+	  		socket.to(room.title).emit('user_joined_room', id);
 	  	});
 
 	});
 
-	function join_user_room(socket, index){
-		if(rooms[index] && rooms[index].people < max_people){
-	  		socket.join(rooms[index].title);
-	  		rooms[index].people ++;
+	function join_user_room(socket, room, userTurn){
+		if(room && room.people < max_people){
+	  		socket.join(room.title);
+	  		room.people ++;
 	  		socket.emit('play_game', {
 	  			rooms,
-	  			index
+	  			id: room.id,
+	  			userTurn
 	  		});
 	  	}
+	}
+
+	function get_room_by_id(id){
+		for(let room of rooms){
+			if(room.id == id){
+				return room;
+			}
+		}
+	}
+
+	function remove_room_by_id(id){
+		for(let index in rooms){
+			if(rooms[index].id == id){
+				rooms.splice(index, 1);
+				return true;
+			}
+		}
+		return false;
 	}
 }
 

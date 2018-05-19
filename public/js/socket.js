@@ -3,6 +3,7 @@ const socket = io();
 const rooms_list_el = document.getElementById('roomsList');
 const loading_el = document.querySelector('.loading');
 const create_room_brn = document.getElementById('createRoomBtn');
+const footer = document.querySelector('footer');
 
 let rooms_list;
 let playing = false;
@@ -19,7 +20,11 @@ socket.on('play_game', function(data){
 	console.log('play_game', data);
 	rooms_list = data.rooms;
 	playing = true;
-	set_loading();
+	output_rooms_list();
+	fecth_get_req('/public/html/game.html', (html) => {
+		footer.insertAdjacentHTML('afterend', html);
+		run_game_fun(socket, data.userTurn,  get_room_by_id(data.id));
+	});
 });
 
 create_room_brn.addEventListener('click', function(e){
@@ -62,15 +67,44 @@ function output_rooms_list(){
 		let a = document.createElement('a');
 		a.href = '#';
 		a.textContent = rooms_list[i].title + '(' + rooms_list[i].people + '/2)';
-		a.dataset.index = i;
+		a.dataset.id = rooms_list[i].id;
 		a.addEventListener('click', function(e){
 			e.preventDefault();
-			let index = e.target.dataset.index;
-			socket.emit('join_room', index);
-			console.log('Room index', index);
+			let id = e.target.dataset.id;
+			console.log('join room ', id);
+			socket.emit('join_room', id);
+			console.log('Room index', id);
 		});
 		li.append(a);
 		rooms_list_el.append(li);
+	}
+}
+
+function fecth_get_req(url, callback){
+	fetch(url, {
+	    method: 'get',
+	}).then(async (res) => {
+		let type = res.headers.get('Content-Type');
+		console.log('response = ',res,type);
+		if(type.indexOf('text/plain') > -1 || type.indexOf('text/html') > -1){
+			return res.text();
+		}else if(type.indexOf('application/json') > -1){
+			return res.json();
+		}
+	})
+	.then((data) => {
+		//console.log('response - data = ',data);
+		callback(data);
+	}).catch((e) => {
+		console.error('Custom Fetch Error', e);
+	});
+}
+
+function get_room_by_id(id){
+	for(let room of rooms_list){
+		if(room.id == id){
+			return room;
+		}
 	}
 }
 
