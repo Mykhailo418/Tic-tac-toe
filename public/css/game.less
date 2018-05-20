@@ -17,10 +17,13 @@
 							    line-height: 1;
 							    text-transform: uppercase;
 						    }
+						    &:hover{
+						    	cursor: pointer;
+						    }
 						}
 					}
 				}
-				.waiting{
+				.waiting, .end_game{
 					position: absolute;
 				    top: 0;
 				    bottom: 0;
@@ -33,6 +36,20 @@
 				    align-items: center;
 				    font-size: 2.5em;
 				    color: white;
+				}
+				.end_game{
+					flex-direction: column;
+				}
+			}
+		}
+	}
+	&.disable-turn{
+		.modal-dialog{
+			.modal-content{
+				.modal-body{
+					table{
+						background: #80808012;
+					}
 				}
 			}
 		}

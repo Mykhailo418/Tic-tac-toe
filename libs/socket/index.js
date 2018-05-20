@@ -3,6 +3,18 @@ const socketRedis = require('socket.io-redis');
 
 let rooms = [];
 const max_people = 2;
+const win_combination = [
+	[1,2,3],
+	[4,5,6],
+	[7,8,9],
+
+	[1,4,7],
+	[2,5,8],
+	[3,6,9],
+
+	[1,5,9],
+	[3,5,7],
+];
 
 function socket(server) {
 	let io = socketIO(server);
@@ -22,6 +34,22 @@ function socket(server) {
 	  	socket.on('close_game', (id) => {
 	  		let room = get_room_by_id(id);
 	  		io.in(room.title).emit('room_closed', id);
+	  	});
+
+	  	socket.on('end_turn', (data) => {
+	  		let room = get_room_by_id(data.room_id);
+	  		if(room){
+		  		if(!room.turns){ room.turns = {} }
+		  		if(!room.turns[data.number]){
+		  			room.turns[data.number] = socket.id;
+		  			if(check_win(room, socket.id)){
+		  				socket.emit('win', true);
+		  				socket.to(room.title).emit('lose', true);
+		  			}else{
+			  			socket.to(room.title).emit('end_turn', data.number);
+			  		}
+			  	}
+			 }
 	  	});
 
 	  	socket.on('leave_room', (id) => {
@@ -79,6 +107,21 @@ function socket(server) {
 			if(rooms[index].id == id){
 				rooms.splice(index, 1);
 				return true;
+			}
+		}
+		return false;
+	}
+
+	function check_win(room, socket_id){
+		if(room.turns){
+			for(let i = 0; i < win_combination.length; i++){
+				let comb = win_combination[i];
+				if(room.turns[comb[0]] == room.turns[comb[1]] && 
+					room.turns[comb[1]] == room.turns[comb[2]] && 
+					room.turns[comb[2]] == socket_id
+				){
+					return true;
+				}
 			}
 		}
 		return false;
