@@ -1,9 +1,11 @@
+let os = require("os");
+
 module.exports = {
-	port: 8000,
+	port: process.env.PORT || 8000,
 	secret: 'mysecret',
   	root: process.cwd(),
   	mode: 'prod',
-    url: 'http://localhost',
+    url: os.hostname() || 'http://localhost',
   	public: {
   		html:  `${process.cwd()}/public/html`
   	},
