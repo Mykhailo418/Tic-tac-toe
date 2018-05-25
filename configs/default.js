@@ -10,7 +10,7 @@ module.exports = {
   		html:  `${process.cwd()}/public/html`
   	},
   	db: {
-  		host: 'mongodb://Michael:123@ds245687.mlab.com:45687/tic_tac_toe'
+  		host: 'mongodb://Michael418:1q2w3e4r5t6y@ds245687.mlab.com:45687/tic_tac_toe'
   	},
   	hash: {
 	  length:     128,

@@ -1,5 +1,5 @@
 const socketIO = require('socket.io');
-//const socketRedis = require('socket.io-redis');
+const socketRedis = require('socket.io-redis');
 
 let rooms = [];
 const max_people = 2;
@@ -19,7 +19,7 @@ const win_combination = [
 function socket(server) {
 	let io = socketIO(server);
 
-	//io.adapter(socketRedis({ host: 'localhost', port: 6379 }));
+	io.adapter(socketRedis({ host: 'localhost', port: 6379 }));
 
 	io.use(require('./auth'));
 
@@ -128,8 +128,8 @@ function socket(server) {
 	}
 }
 
-/*let socketEmitter = require('socket.io-emitter');
+let socketEmitter = require('socket.io-emitter');
 let redisClient = require('redis').createClient();
-socket.emitter = socketEmitter(redisClient);*/
+socket.emitter = socketEmitter(redisClient);
 
 module.exports = socket;
