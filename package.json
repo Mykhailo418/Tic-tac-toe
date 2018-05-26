@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async_hooks": "^1.0.0",
     "clarify": "^2.1.0",
     "co": "^4.6.0",
     "co-busboy": "^1.4.0",

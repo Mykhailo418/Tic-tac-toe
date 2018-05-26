@@ -5,6 +5,7 @@ if (process.env.TRACE || true) {
 const port = require('./configs/default').port;
 const app = require('./app');
 const socket = require('./libs/socket');
+const config = require('./configs/default');
 // Windsotn Logs
 var winston = require('winston');
 require('winston-mongodb');
