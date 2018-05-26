@@ -5,13 +5,6 @@ const app = new Koa();
 const config = require('./configs/default');
 const middlewares = require('./configs/middlewares');
 
-// Windsotn Logs
-var winston = require('winston');
-require('winston-mongodb');
-winston.add(winston.transports.MongoDB, {
-    db : config.db.host,
-    collection : 'logs',
-});
 
 middlewares.forEach(middleware => require('./middlewares/' + middleware)(app));
 
