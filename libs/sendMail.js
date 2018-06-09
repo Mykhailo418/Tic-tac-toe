@@ -15,7 +15,7 @@ const SMTPTransport = require('nodemailer-smtp-transport');
 // Settings
 const transportEngine = (mode == 'test_prod' || process.env.MAILER_DISABLED) ? stubTransport() :
   	new SMTPTransport({
-	  service: "Gmail",
+	  service: "Yandex",
 	  debug: true,
 	  auth: {
 	    user: mail_config.gmail.user,
