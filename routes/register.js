@@ -11,7 +11,7 @@ exports.post = async function(ctx, next) {
 	console.log('-- Register Body', ctx.request.body);
 	await User.registerUser(ctx.request.body).then(async function(data) {
 			if(data){
-				let letter = await sendMail({
+				/*let letter = await sendMail({
 	              template:     'hello',
 	              subject:      'Hello from Tic Tac Toe',
 	              to:           data.email,
@@ -20,10 +20,10 @@ exports.post = async function(ctx, next) {
 	            });
 	            if(letter){
 					ctx.flash('info', 'Verify your email.');
-				}
+				}*/
 				ctx.body = {
 					success: true,
-					location: '/'
+					location: '/login'
 				};
 			}else{
 				ctx.throw(404);
